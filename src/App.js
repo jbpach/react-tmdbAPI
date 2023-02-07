@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react';
+import MovieList from './components/MovieList';
 
 function App() {
+  const API_URL = 'https://api.themoviedb.org/3/movie/upcoming?api_key=d9330d162a75116fea750cc194d38c31&language=en-US&page=1'
+  const [upMovies, setUpMovies] = useState([])
+
+  useEffect(() => {
+      const fetchUpcomingMovies = async () => {
+          try {
+              const response = await fetch(API_URL);
+              const upcomingMovies = await response.json();
+              setUpMovies(upcomingMovies.results);
+          } catch(err) {
+              console.log(err);
+          }
+      }
+      (async () => await fetchUpcomingMovies())();
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <MovieList heading="Upcoming Movies"upMovies={upMovies}/>
+        <MovieList heading="Upcoming Movies"upMovies={upMovies}/>
+        <MovieList heading="Upcoming Movies"upMovies={upMovies}/>
+        <MovieList heading="Upcoming Movies"upMovies={upMovies}/>
     </div>
   );
 }
