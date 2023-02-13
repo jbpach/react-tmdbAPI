@@ -3,7 +3,8 @@ nav {
     height: 90px;
     top: 0;
     left: 0;
-    color: #FCFFFF;;
+    color: #FCFFFF;
+    position: absolute;
 }
 
 nav .container {

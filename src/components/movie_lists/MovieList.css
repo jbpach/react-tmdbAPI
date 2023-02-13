@@ -1,0 +1,55 @@
+.listheading {
+  color: #FCFFFF;
+  margin-bottom: 1em;
+}
+
+.movieList {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 2.5em;
+
+  overflow-x: scroll;
+  overscroll-behavior-inline: contain;
+}
+
+.snaps-inline {
+  scroll-snap-type: inline mandatory;
+}
+.snaps-inline > * {
+  scroll-snap-align: start;
+}
+
+.movieList::-webkit-scrollbar {
+  height: .5em;
+}
+.movieList::-webkit-scrollbar-thumb {
+  background: #DBDBDB;
+  border-radius: 100vh;
+}
+
+article {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  color: #FCFFFF;
+  margin-bottom: 2em;
+}
+
+article img {
+  object-fit: cover;
+  width: auto;
+  height: 210px;
+  border-radius: .5em;
+}
+
+article h1 {
+  font-size: 12.5px;
+  overflow: hidden;
+  white-space: nowrap;  
+  text-overflow: ellipsis;
+}
+
+article p {
+  font-size: 12px;
+}

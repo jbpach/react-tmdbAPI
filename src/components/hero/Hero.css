@@ -1,43 +1,41 @@
 .hero {
-    background-color: white;
     color: black;
-    height: 80vh;
+    height: 70vh;
     width: 100%;
-    position: relative;
     margin-bottom: 4rem;
-    z-index: -2;
+    z-index: -1;
 }
 
 .hero::before {
     content: '';
     height: 100%;
     width: 100%;
-    position: absolute;
     top: 0;
     left: 0;
 }
 
 .hero .content {
-    height: 80vh;
-    display: flex;
-    align-items: end;
-    justify-content: center;
+    height: 70vh;
 }
 
 .main-test {
+    z-index: 1;
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    gap: 5rem;
+    top: 55vh;
 }
 
 .test {
+    cursor: pointer;
     width: 250px;
     height: 150px;
     position: relative;
     display: flex;
     justify-content: center;
-    align-items: end;
+    align-items: flex-end;
+    margin: 0 1rem;
 }
 
 .test h1{
@@ -55,5 +53,10 @@
     left: 0;
     border-radius: 25px;
     z-index: -1;
-    opacity: .5;
+}
+
+@media screen and (max-width: 940px) {
+    .main-test {
+        display: none;
+    }
 }
