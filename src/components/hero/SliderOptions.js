@@ -1,12 +1,12 @@
 import Option from "./Option";
 
-const SliderOptions = ({ upMovies, currIndex, handleClick }) => {
+const SliderOptions = ({ movies, currIndex, handleClick }) => {
     return (
         <div className="main-test">
             {
-                upMovies.map((movie, index) => {
+                movies.map((movie, index) => {
                     return (
-                        <Option movie={movie} currIndex={currIndex} index={index} handleClick={handleClick} />
+                        <Option key={movie.id} movie={movie} currIndex={currIndex} index={index} handleClick={handleClick} />
                     )
                 })
             }

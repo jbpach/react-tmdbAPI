@@ -2,7 +2,7 @@ import { useState } from "react";
 import SliderOptions from "./SliderOptions";
 import "./Hero.css";
 
-const Hero = ({ upMovies }) => {
+const Hero = ({ movies }) => {
 
     const [currIndex, setCurrIndex] = useState(0);
 
@@ -12,12 +12,12 @@ const Hero = ({ upMovies }) => {
 
     return (
         <>
-            <div className="hero" style={ upMovies[currIndex] && {background: `url(https://image.tmdb.org/t/p/original${upMovies[currIndex].backdrop_path}) no-repeat center center/cover`}}>
+            <div className="hero" style={ movies[currIndex] && {background: `url(https://image.tmdb.org/t/p/original${movies[currIndex].backdrop_path}) no-repeat center center/cover`}}>
                 <div className="content">
                 </div>
             </div>
             <div className="container">
-                <SliderOptions upMovies={upMovies} currIndex={currIndex} handleClick={handleClick}/>
+                <SliderOptions movies={movies} currIndex={currIndex} handleClick={handleClick}/>
             </div>
 
         </>

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import './NavBar.css'
 import { RxHamburgerMenu } from 'react-icons/rx'
@@ -13,17 +14,17 @@ const NavBar = () => {
     return (
         <nav>
             <div className='container'>
-                <h1>The Trailers</h1>
+                <Link to={`/`}><h1>The Trailers</h1></Link>
                 <form className='nav-search'>
                     {/* <label htmlFor='search'></label> */}
                     <input id='search' type='text' placeholder='Search for a movie'/>
                     <button type='submit'><BiSearch className='icon'/></button>
                 </form>
                 <ul className={ hamClick ? 'nav-menu active' : 'nav-menu' }> 
-                    <li>Popular</li>
-                    <li>Now Playing</li>
-                    <li>Upcoming</li>
-                    <li>Top Rated</li>
+                    <Link to={`popular`}><li>Popular</li></Link>
+                    <Link to={`nowplaying`}><li>Now Playing</li></Link>
+                    <Link to={`upcoming`}><li>Upcoming</li></Link>
+                    <Link to={`toprated`}><li>Top Rated</li></Link>
                 </ul>
                 <div className='hamburger' onClick={handleHamClick}>
                     <RxHamburgerMenu className='icon'/>

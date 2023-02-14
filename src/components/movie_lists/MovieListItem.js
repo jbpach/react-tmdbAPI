@@ -13,11 +13,8 @@ const MovieListItem = ({ movie }) => {
         '11': "Nov", 
         '12': "Dec" 
     };
-
-    console.log(movie)
-    
+        
     return (
-
         <article>
             <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt="poster" />
             <h1>{movie.original_title}</h1>
