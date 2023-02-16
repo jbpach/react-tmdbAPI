@@ -15,9 +15,9 @@ const Hero = ({ movies }) => {
             <div className="hero" style={ movies[currIndex] && {background: `url(https://image.tmdb.org/t/p/original${movies[currIndex].backdrop_path}) no-repeat center center/cover`}}>
                 <div className="content">
                 </div>
-            </div>
-            <div className="container">
-                <SliderOptions movies={movies} currIndex={currIndex} handleClick={handleClick}/>
+                <div className="container">
+                    <SliderOptions movies={movies} currIndex={currIndex} handleClick={handleClick}/>
+                </div>
             </div>
 
         </>

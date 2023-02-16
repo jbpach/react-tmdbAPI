@@ -27,6 +27,12 @@
     top: 55vh;
 }
 
+.hero .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .test {
     cursor: pointer;
     width: 250px;
