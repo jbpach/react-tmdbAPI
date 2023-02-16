@@ -6,7 +6,7 @@
 .movieList {
   display: flex;
   flex-wrap: nowrap;
-  gap: 2.5em;
+  /* gap: 2.5em; */
   overflow-x: scroll;
   overscroll-behavior-inline: contain;
   margin-bottom: 3rem;
@@ -34,6 +34,7 @@ article {
   width: 150px;
   color: #FCFFFF;
   margin-bottom: 2em;
+  margin-right: 1.5rem;
 }
 
 article img {

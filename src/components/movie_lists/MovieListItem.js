@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const MovieListItem = ({ movie }) => {
     const monthAbbr = {
         '01': "Jan", 
@@ -15,11 +17,13 @@ const MovieListItem = ({ movie }) => {
     };
         
     return (
-        <article>
-            <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt="poster" />
-            <h1>{movie.original_title}</h1>
-            <p>{monthAbbr[movie.release_date.slice(5,7)]} {movie.release_date.slice(8,)}</p>                
-        </article> 
+        <Link key={movie.id} to={`../../movie/${movie.id}`}>
+            <article>
+                <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt="poster" />
+                <h1>{movie.original_title}</h1>
+                <p>{monthAbbr[movie.release_date.slice(5,7)]} {movie.release_date.slice(8,)}</p>                
+            </article> 
+        </Link>
     )
 }
 
