@@ -60,7 +60,7 @@ nav .icon {
     color: #FCFFFF;
 }
 
-@media screen and (max-width: 940px) {
+/* @media screen and (max-width: 940px) {
     .hamburger {
         display: block;
     }
@@ -90,4 +90,4 @@ nav .icon {
     nav .nav-menu li {
         font-size: 2rem;
     }
-}
+} */

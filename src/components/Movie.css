@@ -47,6 +47,7 @@
 
 .heading-title {
     color: white;
+    font-size: 50px;
 }
 
 .rotate-heading {
@@ -65,11 +66,12 @@
     font-size: 12px;
     padding: 3px;
     text-align: center;
-    margin: 0 3px 1rem 3px;
+    margin: 0 3px 1.5rem 3px;
 
 } 
 
 .movie-container {
+    color: white;
     max-width: 1280px;
     margin: auto;
     display: flex;
@@ -79,6 +81,23 @@
     justify-content: flex-end;
 }
 
+.movie-container h1 {
+    margin-bottom: 1rem;
+}
+
+.actor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+.actor img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 100%;
+}
 
 /* .movie .container {
 

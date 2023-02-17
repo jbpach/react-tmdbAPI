@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import ReactPlayer from "react-player/youtube";
 import "./Movie.css"
 import MovieListItem from "./movie_lists/MovieListItem";
 
@@ -18,11 +19,25 @@ const Movie = () => {
         '11': "Nov", 
         '12': "Dec" 
     };
+
+    const movieBudget = (budget) => {
+        if ( budget >= 1000000000){
+            return `$${budget / 1000000000}B`;
+        } else if (budget >= 1000000) {
+            return `$${budget / 1000000}M`;
+        } else {
+            return `$${budget}`;
+        }
+    }
     const API_KEY = 'd9330d162a75116fea750cc194d38c31';
     const { id } = useParams();
     const [movieDetail, setMovieDetails] = useState({});
     const [rating, setRating] = useState([]);
-    const [rec, setRec] = useState([])
+    const [rec, setRec] = useState([]);
+    const [actors, setActors] = useState([]);
+    const [director, setDirector] = useState([]);
+    const [playTrailer, SetPlayTrailer] = useState(false)
+    const [trailer, SetTrailer] = useState([])
 
     useEffect(() => {
         const fetchMovie = async () => {
@@ -30,6 +45,7 @@ const Movie = () => {
                 const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`);
                 const movie = await response.json();
                 setMovieDetails(movie);
+                SetPlayTrailer(false);
             } catch(err) {
                 console.log(err);
             }
@@ -51,6 +67,22 @@ const Movie = () => {
     }, [id])
 
     useEffect(() => {
+        const fetchActors = async () => {
+            try {
+                const response = await fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}&language=en-US`);
+                const data = await response.json();
+                setActors(data.cast.slice(0, 5));
+                setDirector(data.crew.filter((crew) => crew.job === "Director"));
+            } catch(err) {
+                console.log(err);
+            }
+        }
+        (async () => await fetchActors())();
+    }, [id])
+
+    console.log(director)
+
+    useEffect(() => {
         const fetchSimilarMovies = async () => {
             try {
                 const response = await fetch(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${API_KEY}&language=en-US&page=1`);
@@ -63,11 +95,29 @@ const Movie = () => {
         (async () => await fetchSimilarMovies())();
     }, [id])
 
+    useEffect(() => {
+        const fetchTrailer = async () => {
+            try {
+                const response = await fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=en-US`);
+                const trailerResponse = await response.json();
+                SetTrailer(trailerResponse.results);
+            } catch(err) {
+                console.log(err);
+            }
+        }
+        (async() => await fetchTrailer())();
+    }, [id])
+
+    console.log(trailer)
+
     return (
         <main className="movie">
             <div className="hero" style={movieDetail.backdrop_path && {background: `url(https://image.tmdb.org/t/p/original${movieDetail.backdrop_path}) no-repeat center center/cover`}}>
                 <div className="content">
                     <div className="movie-container">
+
+                        {director[0] && <h3>{director[0].name}</h3>}
+    
                         <h1 className="heading-title">{movieDetail.title}</h1>
                         <div style={{display: "flex"}}> 
                             {   
@@ -79,6 +129,7 @@ const Movie = () => {
                             }
                         </div>
                         <div className="details">
+                            {/* <button>Play</button> */}
                             <div className="border">
                                 <h2 className="rotate-heading">RATING</h2>
                                 { rating[0] && <h3>{rating[0].release_dates[0].certification !== "" ?  rating[0].release_dates[0].certification : "N/A"}</h3> }
@@ -89,7 +140,7 @@ const Movie = () => {
                             </div>
                             <div className="border">
                                 <h2 className="rotate-heading">BUDGET</h2>
-                                <h3>${movieDetail.budget / 1000000}M</h3>
+                                {movieDetail.budget && <h3>{movieBudget(movieDetail.budget) === '$0' ?  'N/A' : movieBudget(movieDetail.budget)}</h3> }
                             </div>
                             <div className="border">
                                 <h2 className="rotate-heading">LENGTH</h2>
@@ -104,9 +155,23 @@ const Movie = () => {
                     <p>{movieDetail.overview}</p>
 
                     <h2>HYPE</h2>
+                    <p>{Math.round(movieDetail.vote_average * 10) / 10}% User Score</p>
+                    <p>{movieDetail.vote_count} Votes</p>
 
                     <h2>NOTABLE CAST</h2>
-
+                    <div style={{display: "flex", justifyContent: "space-evenly"}}>
+                        {
+                            actors.map((actor, index) => {
+                                return (
+                                    <div className="actor" key={index}>
+                                        <img src={`https://image.tmdb.org/t/p/original${actor.profile_path}`} alt="profile pic"/>
+                                        <h2>{actor.name}</h2>
+                                        <h3>{actor.character}</h3>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
                     <h2>OTHER SIMILAR FILMS</h2>
                     <div style={{display: "flex"}} >
                         {
@@ -117,6 +182,8 @@ const Movie = () => {
                             })
                         }
                     </div>
+                    <button onClick={() => {SetPlayTrailer((prev) => !prev)}}>Play</button>
+                    {playTrailer && <ReactPlayer url={`https://www.youtube.com/watch?v=${trailer[trailer.length - 1].key}`} controls playing/>}
             </div>
         </main>
     )
