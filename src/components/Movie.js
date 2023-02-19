@@ -129,7 +129,7 @@ const Movie = () => {
                             }
                         </div>
                         <div className="details">
-                            {/* <button>Play</button> */}
+                            <button className="play-trailerbtn" onClick={() => {SetPlayTrailer((prev) => !prev)}} style={{backgroundColor: playTrailer && "red"}} > ▶ </button>
                             <div className="border">
                                 <h2 className="rotate-heading">RATING</h2>
                                 { rating[0] && <h3>{rating[0].release_dates[0].certification !== "" ?  rating[0].release_dates[0].certification : "N/A"}</h3> }
@@ -151,39 +151,42 @@ const Movie = () => {
                 </div>
             </div>
             <div className="container">
-                    <h2>DESCRIPTION</h2>
-                    <p>{movieDetail.overview}</p>
+                {playTrailer && 
+                    <div className="trailer-container">
+                        <ReactPlayer url={`https://www.youtube.com/watch?v=${trailer[trailer.length - 1].key}`} controls playing/>
+                    </div>     
+                }
+                <h2>DESCRIPTION</h2>
+                <p>{movieDetail.overview}</p>
 
-                    <h2>HYPE</h2>
-                    <p>{Math.round(movieDetail.vote_average * 10) / 10}% User Score</p>
-                    <p>{movieDetail.vote_count} Votes</p>
+                <h2>HYPE</h2>
+                <p>{Math.round(movieDetail.vote_average * 10) / 10}% User Score</p>
+                <p>{movieDetail.vote_count} Votes</p>
 
-                    <h2>NOTABLE CAST</h2>
-                    <div style={{display: "flex", justifyContent: "space-evenly"}}>
-                        {
-                            actors.map((actor, index) => {
-                                return (
-                                    <div className="actor" key={index}>
-                                        <img src={`https://image.tmdb.org/t/p/original${actor.profile_path}`} alt="profile pic"/>
-                                        <h2>{actor.name}</h2>
-                                        <h3>{actor.character}</h3>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-                    <h2>OTHER SIMILAR FILMS</h2>
-                    <div style={{display: "flex"}} >
-                        {
-                            rec.map((movie) => {
-                                return (
-                                    <MovieListItem key={movie.id} movie={movie} />
-                                )
-                            })
-                        }
-                    </div>
-                    <button onClick={() => {SetPlayTrailer((prev) => !prev)}}>Play</button>
-                    {playTrailer && <ReactPlayer url={`https://www.youtube.com/watch?v=${trailer[trailer.length - 1].key}`} controls playing/>}
+                <h2>NOTABLE CAST</h2>
+                <div style={{display: "flex", justifyContent: "space-evenly"}}>
+                    {
+                        actors.map((actor, index) => {
+                            return (
+                                <div className="actor" key={index}>
+                                    <img src={`https://image.tmdb.org/t/p/original${actor.profile_path}`} alt="profile pic"/>
+                                    <h2>{actor.name}</h2>
+                                    <h3>{actor.character}</h3>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+                <h2>OTHER SIMILAR FILMS</h2>
+                <div style={{display: "flex"}} >
+                    {
+                        rec.map((movie) => {
+                            return (
+                                <MovieListItem key={movie.id} movie={movie} />
+                            )
+                        })
+                    }
+                </div>
             </div>
         </main>
     )
