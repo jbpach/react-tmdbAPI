@@ -20,3 +20,14 @@
     grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) );
     gap: 2rem;
 }
+
+.popular .container .load-more {
+    border-radius: 10px;
+    background-color: blueviolet;
+    padding: 1rem 2rem;
+    border: none;
+    font-size: 20px;
+    color: white;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}

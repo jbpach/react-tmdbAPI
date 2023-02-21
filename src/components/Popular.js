@@ -37,7 +37,7 @@ const Popular = () => {
                         })
                     }
                 </div>
-                <button onClick={handleLoadMore}>Load More</button>
+                <button className="load-more" onClick={handleLoadMore}>Load More</button>
             </div>
         </main>
     )

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { BsPlayFill, BsFillStopFill } from "react-icons/bs"
 import ReactPlayer from "react-player/youtube";
+import defaultAvatar from "../avatar.jpg";
+import defaultBanner from "../banner.jpg";
 import "./Movie.css"
 import MovieListItem from "./movie_lists/MovieListItem";
 
@@ -112,7 +115,7 @@ const Movie = () => {
 
     return (
         <main className="movie">
-            <div className="hero" style={movieDetail.backdrop_path && {background: `url(https://image.tmdb.org/t/p/original${movieDetail.backdrop_path}) no-repeat center center/cover`}}>
+            <div className="hero" style={movieDetail.backdrop_path ? {background: `url(https://image.tmdb.org/t/p/original${movieDetail.backdrop_path}) no-repeat center center/cover`} : {background: `url(${defaultBanner}) no-repeat center center/cover`} }>
                 <div className="content">
                     <div className="movie-container">
 
@@ -129,7 +132,7 @@ const Movie = () => {
                             }
                         </div>
                         <div className="details">
-                            <button className="play-trailerbtn" onClick={() => {SetPlayTrailer((prev) => !prev)}} style={{backgroundColor: playTrailer && "red"}} > ▶ </button>
+                            <button className="play-trailerbtn" onClick={() => {SetPlayTrailer((prev) => !prev)}} style={{backgroundColor: playTrailer && "red"}} > {playTrailer ? <BsFillStopFill/> : <BsPlayFill /> } </button>
                             <div className="border">
                                 <h2 className="rotate-heading">RATING</h2>
                                 { rating[0] && <h3>{rating[0].release_dates[0].certification !== "" ?  rating[0].release_dates[0].certification : "N/A"}</h3> }
@@ -153,15 +156,20 @@ const Movie = () => {
             <div className="container">
                 {playTrailer && 
                     <div className="trailer-container">
-                        <ReactPlayer url={`https://www.youtube.com/watch?v=${trailer[trailer.length - 1].key}`} controls playing/>
+                        <ReactPlayer url={`https://www.youtube.com/watch?v=${trailer[trailer.length - 1].key}`} controls playing />
                     </div>     
                 }
-                <h2>DESCRIPTION</h2>
-                <p>{movieDetail.overview}</p>
-
-                <h2>HYPE</h2>
-                <p>{Math.round(movieDetail.vote_average * 10) / 10}% User Score</p>
-                <p>{movieDetail.vote_count} Votes</p>
+                <div className="main-grid">
+                    <section>
+                        <h2>DESCRIPTION</h2>
+                        <p>{movieDetail.overview}</p>
+                    </section>
+                    <section>
+                        <h2>HYPE</h2>
+                        <p><b>{Math.round(movieDetail.vote_average * 10) / 10}%</b> User Score</p>
+                        <p><b>{movieDetail.vote_count}</b> Votes</p>
+                    </section>
+                </div>
 
                 <h2>NOTABLE CAST</h2>
                 <div style={{display: "flex", justifyContent: "space-evenly"}}>
@@ -169,7 +177,9 @@ const Movie = () => {
                         actors.map((actor, index) => {
                             return (
                                 <div className="actor" key={index}>
-                                    <img src={`https://image.tmdb.org/t/p/original${actor.profile_path}`} alt="profile pic"/>
+                                    {actor.profile_path ? <img src={`https://image.tmdb.org/t/p/original${actor.profile_path}`} alt="Profile" />
+                                        :   <img src={defaultAvatar} alt="Default Profile" />
+                                    } 
                                     <h2>{actor.name}</h2>
                                     <h3>{actor.character}</h3>
                                 </div>
