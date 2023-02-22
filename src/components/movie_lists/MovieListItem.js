@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import defaultMovieBanner from "../../moviebanner.jpg";
 
 const MovieListItem = ({ movie }) => {
     const monthAbbr = {
@@ -19,7 +20,7 @@ const MovieListItem = ({ movie }) => {
     return (
         <Link key={movie.id} to={`../../movie/${movie.id}`}>
             <article>
-                <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt="poster" />
+                 { movie.poster_path ? <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt="poster" /> : <img src={defaultMovieBanner} alt="default poster" /> }
                 <h1>{movie.original_title}</h1>
                 <p>{monthAbbr[movie.release_date.slice(5,7)]} {movie.release_date.slice(8,)}</p>                
             </article> 

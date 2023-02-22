@@ -13,10 +13,13 @@ const Popular = () => {
     useEffect(() => {
         const fetchMovies = async () => {
             try {
-                const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${popCounter}`);
+                const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=d9330d162a75116fea750cc194d38c31&language=en-US&page=1`);
                 const movies = await response.json();
-
-                setPopularMovies((prevMovies) =>  [...prevMovies, ...movies.results] );
+                if (popCounter === 1) {
+                    setPopularMovies(movies.results );
+                } else {
+                    setPopularMovies((prevMovies) => [...prevMovies, ...movies.results])
+                }
             } catch(err) {
                 console.log(err);
             }

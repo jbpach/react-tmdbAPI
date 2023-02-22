@@ -9,6 +9,9 @@ import Movie from './components/Movie';
 import Missing from './components/Missing';
 import { Routes, Route } from 'react-router-dom';
 import Search from './components/Search';
+import Nowplaying from './components/Nowplaying';
+import TopRated from './components/TopRated';
+import Upcoming from './components/Upcoming';
 
 
 function App() {
@@ -80,18 +83,18 @@ function App() {
   return (
     <Routes>
         <Route path="/" element={<Layout search={search} setSearch={setSearch} /> }>
-            <Route index element={<Home popularMoviesSection={popularMovies.slice(0,5)} upcomingMovies={upComingMovies} nowPlayMovies={nowPlayMovies} popularMovies={popularMovies} topRatedMovies={topRatedMovies} />} />
+            <Route index element={<Home popularMoviesSection={popularMovies.slice(0,5)} upcomingMovies={upComingMovies} nowPlayMovies={nowPlayMovies} popularMovies={popularMovies.slice(5,)} topRatedMovies={topRatedMovies} />} />
             <Route path="popular">
                 <Route index element={<Popular />} />
             </Route>
             <Route path="nowplaying">
-                <Route index element={<Popular />} />
+                <Route index element={<Nowplaying />} />
             </Route>
             <Route path="upcoming">
-                <Route index element={<Popular />} />
+                <Route index element={<Upcoming />} />
             </Route>
             <Route path="toprated">
-                <Route index element={<Popular />} />
+                <Route index element={<TopRated />} />
             </Route>
             <Route path="movie">
                 <Route path=":id" element={<Movie />} />

@@ -8,6 +8,7 @@ import "./Movie.css"
 import MovieListItem from "./movie_lists/MovieListItem";
 
 const Movie = () => {
+
     const monthAbbr = {
         '01': "Jan", 
         '02': "Feb", 
@@ -41,6 +42,9 @@ const Movie = () => {
     const [director, setDirector] = useState([]);
     const [playTrailer, SetPlayTrailer] = useState(false)
     const [trailer, SetTrailer] = useState([])
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [id]);
 
     useEffect(() => {
         const fetchMovie = async () => {
@@ -90,7 +94,7 @@ const Movie = () => {
             try {
                 const response = await fetch(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${API_KEY}&language=en-US&page=1`);
                 const movieResponse = await response.json();
-                setRec(movieResponse.results.slice(0, 8));
+                setRec(movieResponse.results.slice(0, 7));
             } catch(err) {
                 console.log(err);
             }
@@ -111,8 +115,6 @@ const Movie = () => {
         (async() => await fetchTrailer())();
     }, [id])
 
-    console.log(trailer)
-
     return (
         <main className="movie">
             <div className="hero" style={movieDetail.backdrop_path ? {background: `url(https://image.tmdb.org/t/p/original${movieDetail.backdrop_path}) no-repeat center center/cover`} : {background: `url(${defaultBanner}) no-repeat center center/cover`} }>
@@ -132,7 +134,7 @@ const Movie = () => {
                             }
                         </div>
                         <div className="details">
-                            <button className="play-trailerbtn" onClick={() => {SetPlayTrailer((prev) => !prev)}} style={{backgroundColor: playTrailer && "red"}} > {playTrailer ? <BsFillStopFill/> : <BsPlayFill /> } </button>
+                            { trailer.length !== 0 && <button className="play-trailerbtn" onClick={() => {SetPlayTrailer((prev) => !prev)}} style={{backgroundColor: playTrailer && "red"}} > {playTrailer ? <BsFillStopFill/> : <BsPlayFill /> } </button> }
                             <div className="border">
                                 <h2 className="rotate-heading">RATING</h2>
                                 { rating[0] && <h3>{rating[0].release_dates[0].certification !== "" ?  rating[0].release_dates[0].certification : "N/A"}</h3> }

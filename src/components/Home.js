@@ -4,9 +4,9 @@ const Home = ({ popularMoviesSection, upcomingMovies, nowPlayMovies, popularMovi
     return (
         <>
             <Hero movies={popularMoviesSection}/>
-            <MovieList heading="Upcoming Movies" movies={upcomingMovies} />
-            <MovieList heading="Now Playing" movies={nowPlayMovies} />
             <MovieList heading="Popular" movies={popularMovies} />
+            <MovieList heading="Now Playing" movies={nowPlayMovies} />
+            <MovieList heading="Upcoming Movies" movies={upcomingMovies} />
             <MovieList heading="Top Rated" movies={topRatedMovies} />
         </>
     )
