@@ -8,10 +8,12 @@ import Popular from './components/Popular';
 import Movie from './components/Movie';
 import Missing from './components/Missing';
 import { Routes, Route } from 'react-router-dom';
+import Search from './components/Search';
 
 
 function App() {
     const API_KEY = 'd9330d162a75116fea750cc194d38c31';
+    const [search, setSearch] = useState('');
     const POP_API = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`; 
     const NW_API = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`;
     const UP_API = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`;
@@ -77,7 +79,7 @@ function App() {
 
   return (
     <Routes>
-        <Route path="/" element={<Layout /> }>
+        <Route path="/" element={<Layout search={search} setSearch={setSearch} /> }>
             <Route index element={<Home popularMoviesSection={popularMovies.slice(0,5)} upcomingMovies={upComingMovies} nowPlayMovies={nowPlayMovies} popularMovies={popularMovies} topRatedMovies={topRatedMovies} />} />
             <Route path="popular">
                 <Route index element={<Popular />} />
@@ -93,6 +95,9 @@ function App() {
             </Route>
             <Route path="movie">
                 <Route path=":id" element={<Movie />} />
+            </Route>
+            <Route path="search">
+                <Route path=":id" element={<Search search={search} />} />
             </Route>
             <Route path="*" element={<Missing />} />
         </Route>
